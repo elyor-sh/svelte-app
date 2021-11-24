@@ -2,7 +2,7 @@
   import TodoCard from "./TodoCard.svelte";
 
   let value = "";
-  let todos = [];
+ let todos = [];
 
   function submitHandler(e) {
     e.preventDefault();
@@ -27,9 +27,7 @@
     <p>No todos...</p>
 {/if}
 
-{#each todos as { name, id }}
-  <TodoCard {name} {id} todos={todos}/>
-{/each}
+<TodoCard bind:todos={todos}/>
 
 <style>
   form {

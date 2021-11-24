@@ -1,32 +1,51 @@
 <script>
-    import FormField from '@smui/form-field';
-    import Switch from '@smui/switch';
-    export let name;
-    export let id;
-    export let completed = false
     export let todos = []
 
-    function removeHandler() {
-        todos = todos.filter(item => item.id !== id)
-        console.log(todos);
+    function removeHandler(e) {
+        todos = todos.filter(item => {
+            console.log('id :', item.id, 'targetId:', +e.target.id);
+            return  item.id !== +e.target.id
+        })
+    }
+
+    function checkedHandler(e, todoId) {
+        console.log(e, todoId);
+        // todos = todos.filter(item => {
+        //     if(item.id === todoId){
+        //         item.completed = e.target.checked
+        //         return todos
+        //     }
+        // })
+        let newArr = []
+        todos.forEach(item => {   
+            if(item.id === todoId){
+                item.completed = e.target.checked
+            }
+            newArr.push(item)
+            todos = newArr
+            console.log(newArr, todos);
+        })
     }
 </script>
 
-<div class={`todoCardWrapper row jcsb`} id={id} >
+{#each todos as { name, id, completed }}
+<div class={`todoCardWrapper row jcsb aic`} key={id}>
     <strong class={`${completed && 'todoCompleted'}`}>
         {name}
     </strong>
     <div class="row">
-        <FormField>
-            <Switch bind:checked={completed} />
-        </FormField>
-        <div class="icon" on:click={removeHandler}>
+        <div class="checkbox">
+            <input type="checkbox" on:change={e => checkedHandler(e, id)}>
+        </div>
+        <div class="icon" on:click={removeHandler} id={id}>
             <span class="material-icons deleteIcon" >
                 delete
             </span>
         </div>
     </div>
 </div>
+{/each}
+
 
 <style>
 
@@ -50,5 +69,19 @@
     }
     .deleteIcon {
         pointer-events: none;
+    }
+
+    .checkbox {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .checkbox input{
+        margin-bottom: 0;
+        width: 16px;
+        height: 16px;
     }
 </style>
