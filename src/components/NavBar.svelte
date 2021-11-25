@@ -1,17 +1,19 @@
 <script>
-    import { Link } from "svelte-routing";
+    import {Router, Link } from "svelte-routing";
 </script>
 
+<Router>
 <nav class="navBar">
-    <Link class="logoNavbar linkNavbar" to="home">
+    <Link class="logoNavbar linkNavbar" to="">
         Logo
     </Link>
     <ul>
-        <li><Link to="/" class="linkNavbar">Home</Link></li>
-        <li><Link to="info" class="linkNavbar">Info</Link></li>
+        <li><Link to="" class="linkNavbar">Home</Link></li>
+        <li><Link to="info" class="linkNavbar">SvelteLogo</Link></li>
         <li><Link to="about" class="linkNavbar">About</Link></li>
     </ul>
 </nav>
+</Router>
 
 <style>
     nav {

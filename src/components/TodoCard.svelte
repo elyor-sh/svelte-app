@@ -1,21 +1,15 @@
 <script>
-    export let todos = []
+    import { fade } from 'svelte/transition';
+    export let todos = JSON.parse(window.localStorage.getItem('todos')) || []
 
     function removeHandler(e) {
         todos = todos.filter(item => {
-            console.log('id :', item.id, 'targetId:', +e.target.id);
             return  item.id !== +e.target.id
         })
+        window.localStorage.setItem('todos', JSON.stringify(todos))
     }
 
     function checkedHandler(e, todoId) {
-        console.log(e, todoId);
-        // todos = todos.filter(item => {
-        //     if(item.id === todoId){
-        //         item.completed = e.target.checked
-        //         return todos
-        //     }
-        // })
         let newArr = []
         todos.forEach(item => {   
             if(item.id === todoId){
@@ -23,13 +17,13 @@
             }
             newArr.push(item)
             todos = newArr
-            console.log(newArr, todos);
+            window.localStorage.setItem('todos', JSON.stringify(todos))
         })
     }
 </script>
 
 {#each todos as { name, id, completed }}
-<div class={`todoCardWrapper row jcsb aic`} key={id}>
+<div class={`todoCardWrapper row jcsb aic`} key={id} transition:fade>
     <strong class={`${completed && 'todoCompleted'}`}>
         {name}
     </strong>

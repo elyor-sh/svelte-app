@@ -1,5 +1,6 @@
 <script>
  import Todo from './../components/Todo.svelte';
+
 </script>
 
 <div class="homepage">

@@ -2,7 +2,7 @@
   import TodoCard from "./TodoCard.svelte";
 
   let value = "";
- let todos = [];
+ let todos = JSON.parse(window.localStorage.getItem('todos') || '[]');
 
   function submitHandler(e) {
     e.preventDefault();
@@ -11,6 +11,7 @@
       name: value,
     };
     todos = [...todos, todo];
+    window.localStorage.setItem('todos', JSON.stringify(todos))
     value = "";
   }
 </script>
