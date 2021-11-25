@@ -1,19 +1,19 @@
 <script>
-    import {Router, Link } from "svelte-routing";
+    import {link} from "svelte-spa-router";
 </script>
 
-<Router>
+
 <nav class="navBar">
-    <Link class="logoNavbar linkNavbar" to="">
+    <a use:link class="logoNavbar linkNavbar" href="/">
         Logo
-    </Link>
+    </a >
     <ul>
-        <li><Link to="" class="linkNavbar">Home</Link></li>
-        <li><Link to="info" class="linkNavbar">SvelteLogo</Link></li>
-        <li><Link to="about" class="linkNavbar">About</Link></li>
+        <li><a use:link href="/" class="linkNavbar">Home</a></li>
+        <li><a use:link href="/info" class="linkNavbar">SvelteLogo</a></li>
+        <li><a use:link href="/about" class="linkNavbar">About</a></li>
     </ul>
 </nav>
-</Router>
+
 
 <style>
     nav {

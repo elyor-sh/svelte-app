@@ -1,20 +1,20 @@
 <script>
-	import SvelteLogo from './pages/SvelteLogo.svelte';
-  import { Router, Route } from "svelte-routing";
+  import Router from "svelte-spa-router";
   import NavBar from "./components/NavBar.svelte";
   import AboutPage from "./pages/AboutPage.svelte";
   import HomePage from "./pages/HomePage.svelte";
-  export let url = "";
+  import SvelteLogo from './pages/SvelteLogo.svelte';
 </script>
 
-<Router {url}>
+
   <NavBar />
   <div class="container">
-    <Route exact path="/"><HomePage /></Route>
-    <Route  path="about"><AboutPage /></Route>
-    <Route  path="info"><SvelteLogo /></Route>
+	<Router routes={{
+		'/': HomePage,
+		'/about': AboutPage,
+		'/info': SvelteLogo
+	}}/>
   </div>
-</Router>
 
 <style>
   :global(*, html, body) {
