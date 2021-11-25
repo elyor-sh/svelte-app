@@ -18,6 +18,7 @@
     let todo = {
       id: Date.now(),
       name: value,
+      completed: false,
     };
     todos = [...todos, todo];
     window.localStorage.setItem("todos", JSON.stringify(todos));
