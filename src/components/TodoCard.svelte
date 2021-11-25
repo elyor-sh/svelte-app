@@ -27,7 +27,7 @@
     <input type="text" value={name} class="todoName" disabled={true}/>
     <div class="row wrapperIcons">
         <div class="checkbox">
-            <input type="checkbox" on:change={e => checkedHandler(e, id)}>
+            <input type="checkbox" on:change={e => checkedHandler(e, id)} bind:checked={completed}>
         </div>
         <div class="icon" on:click={removeHandler} id={id}>
             <span class="material-icons deleteIcon" >
