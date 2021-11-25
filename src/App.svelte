@@ -10,9 +10,9 @@
 <Router {url}>
   <NavBar />
   <div class="container">
-    <Route exact path=""><HomePage /></Route>
-    <Route exact path="about"><AboutPage /></Route>
-    <Route exact path="info"><SvelteLogo /></Route>
+    <Route exact path="/"><HomePage /></Route>
+    <Route  path="about"><AboutPage /></Route>
+    <Route  path="info"><SvelteLogo /></Route>
   </div>
 </Router>
 

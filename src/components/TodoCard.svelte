@@ -23,11 +23,9 @@
 </script>
 
 {#each todos as { name, id, completed }}
-<div class={`todoCardWrapper row jcsb aic`} key={id} transition:fade>
-    <strong class={`${completed && 'todoCompleted'}`}>
-        {name}
-    </strong>
-    <div class="row">
+<div class={`todoCardWrapper row jcsb aic ${completed && 'todoCompleted'}`} key={id} transition:fade>
+    <input type="text" value={name} class="todoName" disabled={true}/>
+    <div class="row wrapperIcons">
         <div class="checkbox">
             <input type="checkbox" on:change={e => checkedHandler(e, id)}>
         </div>
@@ -48,9 +46,39 @@
         width: 100%;
         padding: 15px 10px;
         margin-bottom: 15px;
+        transition: .3s;
+        position: relative;
     }
-    .todoCompleted {
-        text-decoration: line-through;
+    .todoCardWrapper::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        width: 0;
+        height: 1px;
+        background: #a0a0a0;
+        pointer-events: none;
+        transition: .3s;
+    }
+    .todoCardWrapper input{
+        flex: 0 0 80%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        border: none;
+        outline: none;
+        background: #fff;
+        color: #000;
+        padding-top: 9.5px;
+        font-weight: 600;
+    }
+
+    .wrapperIcons {
+        flex:  0 0 20%;
+        justify-content: flex-end;
+    }
+    .todoCompleted::before {
+        width: calc(100% - 10px);
     }
     .icon {
         width: 40px;
@@ -77,5 +105,44 @@
         margin-bottom: 0;
         width: 16px;
         height: 16px;
+        cursor: pointer;
+        transition: .3s ease;
     }
+
+    @media (max-width: 576px) {
+        .todoCardWrapper {
+           flex-direction: column;
+           align-items: flex-start;
+           padding: 10px 0px 0px;
+        }
+
+        .todoCardWrapper::before {
+            top: 32%;
+        }
+
+        .wrapperIcons {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .checkbox, .icon {
+            flex: 0 0 50%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .checkbox {
+            background: #dacd23;
+        }
+        .icon {
+            background: #c2c2c2;
+            margin-left: 0;
+        }
+
+        .todoCardWrapper input.todoName {
+            padding: 10px;
+            width: 100%;
+
+        }
+  }
 </style>

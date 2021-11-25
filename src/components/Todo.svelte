@@ -2,18 +2,33 @@
   import TodoCard from "./TodoCard.svelte";
 
   let value = "";
- let todos = JSON.parse(window.localStorage.getItem('todos') || '[]');
+  let todos = JSON.parse(
+    window.localStorage.getItem("todos") ||
+      JSON.stringify([
+        { id: 0, name: "Follow me on github for more...", completed: false },
+      ])
+  );
 
   function submitHandler(e) {
     e.preventDefault();
+    if (!value.trim()) {
+      alert("Enter something...");
+      return;
+    }
     let todo = {
       id: Date.now(),
       name: value,
     };
     todos = [...todos, todo];
-    window.localStorage.setItem('todos', JSON.stringify(todos))
+    window.localStorage.setItem("todos", JSON.stringify(todos));
     value = "";
   }
+
+  const removeAllTodosHandler = (e) => {
+    e.preventDefault();
+    window.localStorage.clear();
+    todos = [];
+  };
 </script>
 
 <form class="row jcsb" on:submit={submitHandler}>
@@ -21,18 +36,21 @@
     <label for="todo">Add todo...</label>
     <input type="text" id="todo" bind:value />
   </div>
-  <button type="submit"> Add </button>
+  <button class="button" type="submit"> Add </button>
+  <button class="button remove" on:click={removeAllTodosHandler}>
+    Remove all todos
+  </button>
 </form>
 
 {#if todos.length < 1}
-    <p>No todos...</p>
+  <p>No todos...</p>
 {/if}
 
-<TodoCard bind:todos={todos}/>
+<TodoCard bind:todos />
 
 <style>
   form {
-    margin-bottom: 30px;
+    margin: 30px 0;
   }
 
   input {
@@ -43,7 +61,7 @@
   }
 
   .inputWrapper {
-    flex: 0 0 80%;
+    flex: 0 0 60%;
   }
 
   button {
@@ -56,5 +74,38 @@
     color: #fff;
     border: none;
     outline: none;
+    border-radius: 0;
+  }
+
+  .button.remove {
+    background: #ff6549;
+  }
+
+  @media (max-width: 1100px) {
+    .inputWrapper {
+      flex: 0 0 50%;
+    }
+    .button {
+      flex: 0 0 20%;
+    }
+  }
+  @media (max-width: 768px) {
+    .inputWrapper {
+      flex: 0 0 48%;
+    }
+    .button {
+      flex: 0 0 25%;
+    }
+  }
+  @media (max-width: 576px) {
+    form {
+      flex-direction: column;
+    }
+    .button {
+      padding: 10px 0px;
+      text-align: center;
+      display: inline-block;
+      margin-top: 10px;
+    }
   }
 </style>
