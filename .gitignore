@@ -2,3 +2,8 @@
 /public/build/
 
 .DS_Store
+
+# env files
+.env
+.env.*
+!.env.example
